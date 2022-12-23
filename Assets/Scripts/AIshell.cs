@@ -5,12 +5,13 @@ using UnityEngine;
 public class AIshell : MonoBehaviour
 {
     public GameObject explosion;
-
+    Rigidbody rb;
 
     void OnCollisionEnter(Collision col)
     {
         if (col.gameObject.tag == "tank")
         {
+            Debug.Log("Hit Tank");
             GameObject exp = Instantiate(explosion, this.transform.position, Quaternion.identity);
             Destroy(exp, 0.5f);
             Destroy(this.gameObject);
@@ -23,12 +24,12 @@ public class AIshell : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        rb = this.GetComponent<Rigidbody>(); 
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        this.transform.forward = rb.velocity;
     }
 }
